@@ -36,6 +36,7 @@ void InsertAtIndex(node *head) // between
     scanf("%d", &index);
     printf("Enter the element to insert at %d position: ", index);
     scanf("%d", &data);
+
     node *ptr = (node *)malloc(sizeof(node));
     ptr->data = data;
     node *p = head;
@@ -54,12 +55,11 @@ void InsertAfterNode(node *prevNode)
     int data, i;
     printf("Enter the element to insert after passed node: ");
     scanf("%d", &data);
-    ;
+
     node *ptr = (node *)malloc(sizeof(node));
     ptr->data = data;
-
-    ptr->next = (prevNode)->next;
     (prevNode)->next = ptr;
+    ptr->next = (prevNode)->next;
 }
 
 void InsertAtEnd(node *head)
@@ -67,6 +67,7 @@ void InsertAtEnd(node *head)
     int data;
     printf("Enter the element to insert at end: ");
     scanf("%d", &data);
+
     node *ptr = (node *)malloc(sizeof(node));
     ptr->data = data;
     node *p = head;
