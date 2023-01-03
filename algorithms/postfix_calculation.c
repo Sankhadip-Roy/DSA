@@ -1,14 +1,19 @@
+// college lab
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
 #define MAX 5
+
 int top = -1, flag = 0;
 int s[MAX];
+
 int pop()
 {
     return s[top--];
 }
+
 int push(int ele)
 {
     int num;
@@ -23,6 +28,7 @@ int push(int ele)
         flag = 1;
     }
 }
+
 int main(void)
 {
     char *pofx, ch, temp;
