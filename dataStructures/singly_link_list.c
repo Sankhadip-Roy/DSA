@@ -9,13 +9,23 @@ typedef struct LinkedList
 
 void LinkedListTraversal(node *ptr)
 {
-    int i = 1;
     while (ptr != NULL)
     {
-        printf("%d. Element  : %d\n", i, ptr->data);
+        printf("%d->", ptr->data);
+        ptr = ptr->next;
+    }
+    printf("NULL\n");
+}
+
+int linkedListLength(node *ptr)
+{
+    int i = 0;
+    while (ptr != NULL)
+    {
         ptr = ptr->next;
         i++;
     }
+    return i;
 }
 
 node *InsertAtFirst(node *head)
@@ -87,20 +97,31 @@ node *deleteFirst(node *head)
     return head;
 }
 
-void deleteAtIndex(node *head)
+node *deleteAtIndex(node *head)
 {
     int index;
-    printf("Enter the index to delete: ");
+    printf("Enter the index to delete from 0 to %d: ", linkedListLength(head) - 1);
     scanf("%d", &index);
-    node *p = head;
-    node *q = head->next;
-    for (int i = 0; i < index - 1; i++)
+    if (index < 0 || index > linkedListLength(head))
+        printf("ERROR: Node %d does not exist!\n", index);
+    else
     {
-        p = p->next;
-        q = q->next;
+        node *p = head;
+        node *q = head->next;
+        if (index == 0)
+            head = deleteFirst(head);
+        else
+        {
+            for (int i = 0; i < index - 1; i++)
+            {
+                p = p->next;
+                q = q->next;
+            }
+            p->next = q->next;
+            free(q);
+        }
     }
-    p->next = q->next;
-    free(q);
+    return head;
 }
 
 void deleteAtLast(node *head)
@@ -135,9 +156,26 @@ void deleteAValue(node *head)
     }
 }
 
+int MaxMinInList(node *head, int *max, int *min)
+{
+    node *currentNode = head;
+    if (currentNode == NULL)
+        return 0;
+    *max = *min = currentNode->data;
+    for (currentNode = currentNode->next; currentNode != NULL; currentNode = currentNode->next)
+    {
+        if (currentNode->data > *max)
+            *max = currentNode->data;
+        else if (currentNode->data < *min)
+            *min = currentNode->data;
+    }
+    return 1;
+}
+
 int main(void)
 {
-    int n, i;
+    int n, i, max, min;
+
     node *head, *first, *second, *third, *fourth;
     head = (node *)malloc(sizeof(node));
     first = (node *)malloc(sizeof(node));
@@ -155,39 +193,56 @@ int main(void)
     fourth->data = 9;
     fourth->next = NULL;
 
-    printf("\nbefore updating....\n\n");
+    printf("\nAlready created linked list: ");
     LinkedListTraversal(head);
-    printf("\n1.insert at first\n2.insert in between\n3.insert at end\n4.insert after node\n5.delete first\n6.delete in index\n7.delete at last\n8.delete a key\n\nenter:");
-    scanf("%d", &n);
-    switch (n)
-    {
-    case 1:
-        head = InsertAtFirst(head);
-        break;
-    case 2:
-        InsertAtIndex(head);
-        break;
-    case 3:
-        InsertAtEnd(head);
-        break;
-    case 4:
-        InsertAfterNode(second);
-        break;
-    case 5:
-        head = deleteFirst(head);
-        break;
-    case 6:
-        deleteAtIndex(head);
-        break;
-    case 7:
-        deleteAtLast(head);
-        break;
-    case 8:
-        deleteAValue(head);
-        break;
-    }
 
-    printf("\nafter updating....\n\n");
-    LinkedListTraversal(head);
+    while (1)
+    {
+        printf("\n1.traverse linked list\n2.insert at first\n3.insert in between\n4.insert at end\n5.insert after node\n6.delete first\n7.delete in index\n8.delete at last\n9.delete a key\n10.Length of linked list\n11.max and min in linked list\n12.exit\n\nEnter:");
+        scanf("%d", &n);
+        switch (n)
+        {
+        case 1:
+            LinkedListTraversal(head);
+            break;
+        case 2:
+            head = InsertAtFirst(head);
+            break;
+        case 3:
+            InsertAtIndex(head);
+            break;
+        case 4:
+            InsertAtEnd(head);
+            break;
+        case 5:
+            InsertAfterNode(second);
+            break;
+        case 6:
+            head = deleteFirst(head);
+            break;
+        case 7:
+            head = deleteAtIndex(head);
+            break;
+        case 8:
+            deleteAtLast(head);
+            break;
+        case 9:
+            deleteAValue(head);
+            break;
+        case 10:
+            printf("Linked list length: %d", linkedListLength(head));
+            break;
+        case 11:
+            if (MaxMinInList(head, &max, &min))
+                printf("max->%d,min->%d\n", max, min);
+            else
+                printf("link list is empty\n");
+            break;
+        case 12:
+            printf("\nafter updating: ");
+            LinkedListTraversal(head);
+            return 0;
+        }
+    }
     return 0;
 }

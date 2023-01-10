@@ -1,4 +1,5 @@
 // college lab
+// have to add to the power ^
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -47,6 +48,7 @@ int main(void)
             flag = 0;
             op2 = pop();
             op1 = pop();
+            // upper operand divides lower one
             switch (ch)
             {
             case '+':
