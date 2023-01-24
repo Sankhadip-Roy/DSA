@@ -34,9 +34,7 @@ int max(int a, int b)
 int getBalanceFactor(struct Node *n)
 {
     if (n == NULL)
-    {
         return 0;
-    }
     return getHeight(n->left) - getHeight(n->right);
 }
 
@@ -83,14 +81,10 @@ struct Node *insert(struct Node *node, int key)
 
     // LL
     if (bf > 1 && key < node->left->key)
-    {
         return rightRotate(node);
-    }
     // RR
     if (bf < -1 && key > node->right->key)
-    {
         return leftRotate(node);
-    }
     // LR
     if (bf > 1 && key > node->left->key)
     {

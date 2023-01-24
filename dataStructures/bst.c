@@ -109,40 +109,26 @@ int isBST(struct node *root)
     if (root != NULL)
     {
         if (!isBST(root->left))
-        {
             return 0;
-        }
         if (prev != NULL && root->data <= prev->data)
-        {
             return 0;
-        }
         prev = root;
         return isBST(root->right);
     }
     else
-    {
         return 1;
-    }
 }
 
 struct node *search(struct node *root, int key)
 {
     if (root == NULL)
-    {
         return NULL;
-    }
     if (key == root->data)
-    {
         return root;
-    }
     else if (key < root->data)
-    {
         return search(root->left, key);
-    }
     else
-    {
         return search(root->right, key);
-    }
 }
 
 struct node *searchIter(struct node *root, int key)
@@ -150,17 +136,11 @@ struct node *searchIter(struct node *root, int key)
     while (root != NULL)
     {
         if (key == root->data)
-        {
             return root;
-        }
         else if (key < root->data)
-        {
             root = root->left;
-        }
         else
-        {
             root = root->right;
-        }
     }
     return NULL;
 }
@@ -192,9 +172,7 @@ struct node *inOrderPredecessor(struct node *root)
 {
     root = root->left;
     while (root->right != NULL)
-    {
         root = root->right;
-    }
     return root;
 }
 
