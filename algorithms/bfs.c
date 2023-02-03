@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-// qeue used
+// queue used
 struct queue
 {
     int size;

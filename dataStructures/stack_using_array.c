@@ -8,10 +8,7 @@ struct stack
 
 int isEmpty(struct stack *ptr)
 {
-    if (ptr->top == -1)
-        return 1;
-    else
-        return 0;
+    return (ptr->top == -1);
 }
 
 int isFull(struct stack *ptr)
@@ -48,9 +45,7 @@ void pop(struct stack *ptr)
 int peak(struct stack *sp, int i)
 {
     if (sp->top - i + 1 < 0 || i <= 0)
-    {
         return 0;
-    }
     else
         return sp->arr[sp->top - i + 1];
 }
